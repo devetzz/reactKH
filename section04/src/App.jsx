@@ -1,14 +1,16 @@
-import './App.css'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Main from './components/Main'
+import './App.css';
+import HookExam from './components/HookExam';
+import Register from './components/Register';
 
-export default function App() {
+function App( ) {
+  
   return (
     <>
-      <Header />
-      <Main />
-      <Footer />
+    <HookExam />
+    <Register />
     </>
   )
+  
 }
+
+export default App;
