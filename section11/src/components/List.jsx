@@ -1,8 +1,10 @@
 import './List.css'
 import ListItem from './ListItem';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
+import { TodoStateContext } from '../App';
 
-const List = ({ todos, onUpdate, onDelete }) => {
+const List = () => {
+    const {todos} = useContext(TodoStateContext);
     const [search, setSearch] = useState("");
 
     const onChangeInput = (e) => {
@@ -48,7 +50,7 @@ const List = ({ todos, onUpdate, onDelete }) => {
             </div>
             <input value={search} placeholder="검색어를 입력하세요" onChange={onChangeInput} />
             <div className="list_wrapper">
-                {filterTodos.map((data) => { return <ListItem key={data.id} {...data} onUpdate={onUpdate} onDelete={onDelete} /> })}
+                {filterTodos.map((data) => { return <ListItem key={data.id} {...data} /> })}
             </div>
         </div>
     );

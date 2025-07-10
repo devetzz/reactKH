@@ -2,8 +2,8 @@ import './App.css';
 import Header from './components/Header';
 import Edit from './components/Edit';
 import List from './components/List';
-import { useState, useRef, useReducer, useCallback } from 'react';
 import Exam from './components/Exam';
+import { useState, useRef, useReducer, useCallback, createContext, useMemo } from 'react';
 
 const mockData = [
   {id:0, isDone: false, content: 'react 공부하기', date: new Date().getTime()},
@@ -24,6 +24,10 @@ function reducer(todos, action){
   }
 }
 
+
+// 1. createContext() 생성해서 export 시킨다.(context : 자바static과 유사, 공동으로 사용됨)
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
 
 function App() {
   // 상태관리 (전체 데이터 관리)
@@ -51,9 +55,6 @@ function App() {
       type : "UPDATE",
       tagId : tagId
     });
-    // setTodos(
-    //   todos.map((data)=>{return data.id === tagId ? {...data, isDone: !data.isDone} : data})
-    // );
   }, []);
 
   // 삭제
@@ -62,19 +63,23 @@ function App() {
       type : "DELETE",
       tagId : tagId
     });
-    // setTodos(
-    //   todos.filter((data)=>{
-    //     return data.id !== tagId;
-    //   })
-    // );
   }, []);
+
+  // 딱 한번만 발생하도록 처리한다.
+  const memorizedDispatch = useMemo(()=>{
+    return {onInsert, onUpdate, onDelete};
+  }, [onInsert, onUpdate, onDelete]);
 
   return (
     <>
       <div className='App'>
         <Header />
-        <Edit onInsert={onInsert} />
-        <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+        <TodoStateContext.Provider value={{todos}}>
+          <TodoDispatchContext.Provider value={memorizedDispatch}>
+            <Edit />
+            <List />
+          </TodoDispatchContext.Provider>
+        </TodoStateContext.Provider>
       </div>
     </>
   )

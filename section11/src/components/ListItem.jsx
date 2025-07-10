@@ -1,8 +1,10 @@
 import './ListItem.css';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import { TodoDispatchContext } from '../App';
 
-const ListItem = ({id, isDone, content, date, onUpdate, onDelete})=>{
-    console.log(`고차컴포넌트 리스트 아이템 = ${id}`);
+const ListItem = ({id, isDone, content, date})=>{
+    
+    const {onUpdate, onDelete} = useContext(TodoDispatchContext);
     const onChangeCheckBox = ()=>{
         onUpdate(id);
     };
