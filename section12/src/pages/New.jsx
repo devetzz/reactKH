@@ -1,18 +1,31 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import Editor from "../components/Editor";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { DiaryDispatchContext } from "../App";
 
-const New = ()=>{
-    // useState() 비슷한 기능을 url 처리하는데 사용되어진다
-    const [searchParams, setSearchParams] = useSearchParams();
-    console.log(searchParams);
-    const updateNameParam = (name, age)=>{
-        setSearchParams({name: name, age: age});
+const New = () => {
+    const { onInsert } = useContext(DiaryDispatchContext);
+    const nav = useNavigate();
+
+    const onSubmit = (input) => {
+        onInsert(
+            input.createdDate.getTime(),
+            input.emotionId,
+            input.content
+        );
+        //뒤로가기 방지하면서 / 페이지 이동
+        nav("/", { replace: true });
     };
 
-    return(
+    return (
         <div>
-            NEW ?{searchParams.get('name')} <br />
-            NEW ?{searchParams.get('age')} <br />
-            <button onClick={()=>{updateNameParam("kdj", 20)}}>query String 값 변경하기</button>
+            <Header
+                title={"새 일기 쓰기"}
+                leftChild={<Button onClick={() => nav(-1)} text={"< 뒤로 가기"} />}
+            />
+            <Editor onSubmit={onSubmit} />
         </div>
     );
 };
