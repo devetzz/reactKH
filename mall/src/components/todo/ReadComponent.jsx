@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOne } from "../../api/todoApi";
+import { Container } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 
 const initState = {
     tno: 0,
@@ -20,38 +22,40 @@ const ReadComponent = ({ tno }) => {
 
     return (
         <>
-            <div className="mb-3 row">
-                <label for="inputPassword" className="col-sm-2 col-form-label">tno</label>
-                <div className="col-sm-10">
-                    {todo.tno}
-                </div>
-            </div>
-            <div className="mb-3 row">
-                <label for="inputPassword" className="col-sm-2 col-form-label">title</label>
-                <div className="col-sm-10">
-                    {todo.title}
-                </div>
-            </div>
-            <div className="mb-3 row">
-                <label for="inputPassword" className="col-sm-2 col-form-label">writer</label>
-                <div className="col-sm-10">
-                    {todo.writer}
-                </div>
-            </div>
-            <div className="mb-3 row">
-                <label for="inputPassword" className="col-sm-2 col-form-label">Due Date</label>
-                <div className="col-sm-10">
-                    {todo.dueDate}
-                </div>
-            </div>
-            <div className="mb-3 row">
-                <label for="inputPassword" className="col-sm-2 col-form-label">complete</label>
-                <div className="col-sm-10">
-                    {todo.title}
-                </div>
-            </div>
+            <Container className="p-5">
+                <Form>
+                    <Form.Group>
+                        <Form.Label>TNO</Form.Label>
+                        <Form.Control value={todo.tno} type="text" placeholder="Enter no" disabled
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>WRITER</Form.Label>
+                        <Form.Control value={todo.writer} type="text" placeholder="Enter writer"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>TITLE</Form.Label>
+                        <Form.Control type="text" value={todo.title} placeholder="Enter title"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>DATE</Form.Label>
+                        <Form.Control value={todo.dueDate} type="text" disabled />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>COMPLETE</Form.Label>
+                        <Form.Control
+                            value={todo.complete ? 'Completed' : 'Not Yet'} type="text"
+                        />
+                    </Form.Group>
+                </Form>
+            </Container>
         </>
     );
+
 };
+
+
 
 export default ReadComponent;
