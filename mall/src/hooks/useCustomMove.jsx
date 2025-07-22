@@ -26,9 +26,9 @@ const useCustomMove = () => {
             // ?page=4&size=10
             const pageNum = getNum(pageParam.page, page);
             const sizeNum = getNum(pageParam.size, size);
-            queryStr = createSearchParams({ 
+            queryStr = createSearchParams({
                 page: pageNum,
-                size: sizeNum 
+                size: sizeNum
             }).toString();
         } else {
             // ?page=1&size=10
@@ -63,7 +63,27 @@ const useCustomMove = () => {
         })
     }
 
-    return { moveToList, moveToModify, moveToRead, page, size, refresh }; //moveToModify 추가
+    const moveToProductList = (pageParam) => {
+        let queryStr = '';
+        if (pageParam) {
+            const pageNum = getNum(pageParam.page, page);
+            const sizeNum = getNum(pageParam.size, size);
+
+            queryStr = createSearchParams({
+                page: pageNum,
+                size: sizeNum,
+            }).toString();
+        } else {
+            queryStr = queryDefault;
+        }
+        navigate({
+            pathname: `../product/list`,
+            search: queryStr,
+        });
+        setRefresh(!refresh); //추가
+    };
+
+    return { moveToProductList, moveToList, moveToModify, moveToRead, page, size, refresh }; //moveToModify 추가
 }
 
 export default useCustomMove;

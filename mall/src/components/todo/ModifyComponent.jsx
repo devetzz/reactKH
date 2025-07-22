@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, Container } from "react-bootstrap";
 import { getOne, putOne, deleteOne } from "../../api/todoApi";
-import InfoModal from "../todo/common/InfoModal";
+import InfoModal from "../common/InfoModal";
 
 const initState = {
     tno: 0,

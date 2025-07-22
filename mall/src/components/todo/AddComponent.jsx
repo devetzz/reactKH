@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import useCustomMove from '../../hooks/useCustomMove';
 import { postAdd } from '../../api/todoApi';
-import InfoModal from '../todo/common/InfoModal';
+import InfoModal from '../common/InfoModal';
 
 const initState = { title: '', writer: '', dueDate: '' };
 
