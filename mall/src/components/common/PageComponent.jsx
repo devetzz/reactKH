@@ -1,39 +1,32 @@
 import { Container } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
 
 const PageComponent = ({ serverData, moveToList }) => {
-    console.log("page Component");
     return (
         <Container className="d-flex justify-content-center mt-3">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    {
-                        serverData.prev ? (
-                            <li class="page-item" onClick={()=>{ moveToList({page: serverData.prevPage})}}><a class="page-link" href="#">Previous</a></li>
-                        ) : (
-                        <></>
-                    )}
-                    {
-                        serverData.pageNumList.map((pageNum)=>{
-                            return (
-                                serverData.current === pageNum ? (
-                                    <li class="page-item" key={pageNum} className='active' onClick={()=>{ moveToList({page: pageNum})}}><a class="page-link" href="#">{pageNum}</a></li>
-                                ) : (
-                                    <li class="page-item" key={pageNum} onClick={()=>{ moveToList({page: pageNum})}}><a class="page-link"  href="#">{pageNum}</a></li>
-                                )
-                            );
-                        })
-                    }
-                    
-                    {
-                        serverData.next ? (
-                            <li class="page-item" onClick={()=>{ moveToList({page: serverData.nextPage})}}><a class="page-link" href="#">Next</a></li>
-                        ) : (
-                        <></>
-                        )
-                    }
-                    
-                </ul>
-            </nav>
+            <Pagination size="md">
+                {serverData.prev ? (
+                    <Pagination.Prev onClick={() => { moveToList({ page: serverData.prevPage }); }} />
+                ) : (
+                    <></>
+                )}
+                {serverData.pageNumList.map((pageNum) =>
+                    serverData.current === pageNum ? (
+                        <Pagination.Item key={pageNum} active onClick={() => { moveToList({ page: pageNum }); }} >
+                            {pageNum}
+                        </Pagination.Item>
+                    ) : (
+                        <Pagination.Item key={pageNum} onClick={() => { moveToList({ page: pageNum }); }} >
+                            {pageNum}
+                        </Pagination.Item>
+                    )
+                )}
+                {serverData.next ? (
+                    <Pagination.Next onClick={() => { moveToList({ page: serverData.nextPage }); }} />
+                ) : (
+                    <></>
+                )}
+            </Pagination>
         </Container>
     );
 };

@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
-import { getList } from "../../api/productsApi";
-import { Container } from 'react-bootstrap';
-import useCustomMove from "../../hooks/useCustomMove";
-import FetchingModal from "../common/FetchingModal";
+import { useEffect, useState } from 'react';
+import { getList } from '../../api/productApi';
+import useCustomMove from '../../hooks/useCustomMove';
+import FetchingModal from '../common/FetchingModal';
+import { API_SERVER_HOST } from '../../api/todoApi';
+import { Container, Card, Row } from 'react-bootstrap';
+import PageComponent from '../common/PageComponent';
+
+const host = API_SERVER_HOST;
 
 const initState = {
     dtoList: [],
@@ -16,9 +20,10 @@ const initState = {
 
 const ListComponent = () => {
     const { page, size, moveToProductList, moveToProductRead, refresh } = useCustomMove();
-    const [serverData, setServerData] = useState(initState)
+    const [serverData, setServerData] = useState(initState);
     //for FetchingModal
-    const [fetching, setFetching] = useState(false)
+    const [fetching, setFetching] = useState(false);
+
     useEffect(() => {
         setFetching(true)
         getList({ page, size }).then(data => {
@@ -31,8 +36,26 @@ const ListComponent = () => {
     return (
         <>
             <Container className="px-5 justify-content-center mb-5">
-                <h1>Products List Component</h1>
                 {fetching ? <FetchingModal /> : <></>}
+                <Row className="display-content-around mt-5 gap-4">
+                    {serverData.dtoList.map((product) => (
+                        <>
+                            <Card className="p-3"
+                                style={{ width: '14rem', height: '23rem' }} key={product.pno}
+                                onClick={() => moveToProductRead(product.pno)}
+                            >
+                                <Card.Body>
+                                    <Card.Title>PNO :{product.pno}</Card.Title>
+                                    <Card.Title>NAME : {product.pname}</Card.Title>
+                                    <Card.Title>PRICE : {product.price}원</Card.Title>
+                                    <Card.Text></Card.Text>
+                                </Card.Body>
+                                    <img style={{ objectFit : 'cover' }} alt="product" src={`${host}/api/products/view/s_${product.uploadFileNames[0]} `} />
+                            </Card>
+                        </>
+                    ))}
+                </Row>
+                <PageComponent serverData={serverData} moveToList={moveToProductList}></PageComponent>
             </Container>
         </>
     );

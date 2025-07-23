@@ -55,6 +55,14 @@ const useCustomMove = () => {
         })
     }
 
+    const moveToProductModify = (num) => {
+        console.log(queryDefault);
+        navigate({
+            pathname: `../product/modify/${num}`,
+            search: queryDefault, //수정시에 기존의 쿼리 스트링 유지를 위해
+        });
+    };
+
     const moveToRead = (num) => {
         console.log(queryDefault);
         navigate({
@@ -62,6 +70,13 @@ const useCustomMove = () => {
             search: queryDefault
         })
     }
+
+    const moveToProductRead = (num) => {
+        console.log(queryDefault);
+        navigate({
+            pathname: `../product/read/${num}`, search: queryDefault,
+        });
+    };
 
     const moveToProductList = (pageParam) => {
         let queryStr = '';
@@ -83,7 +98,7 @@ const useCustomMove = () => {
         setRefresh(!refresh); //추가
     };
 
-    return { moveToProductList, moveToList, moveToModify, moveToRead, page, size, refresh }; //moveToModify 추가
+    return { moveToProductList, moveToList, moveToModify, moveToProductModify, moveToProductRead, moveToRead, page, size, refresh }; //moveToModify 추가
 }
 
 export default useCustomMove;
