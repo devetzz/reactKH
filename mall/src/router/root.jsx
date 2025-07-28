@@ -22,15 +22,30 @@ const ModifyPage = lazy(() =>
 );
 
 // product page
-const ProductListPage = lazy(() => import("../pages/product/ListPage"));
-const ProductAddPage = lazy(() => import("../pages/product/AddPage"));
-const ProductReadPage = lazy(() => import("../pages/product/ReadPage"));
-const ProductModifyPage = lazy(() => import("../pages/product/ModifyPage"));
+const ProductListPage = lazy(() => 
+  delay(2000).then(() => import("../pages/product/ListPage"))
+);
+const ProductAddPage = lazy(() => 
+  delay(2000).then(() => import("../pages/product/AddPage"))
+);
+const ProductReadPage = lazy(() => 
+  delay(2000).then(() => import("../pages/product/ReadPage"))
+);
+const ProductModifyPage = lazy(() => 
+  delay(2000).then(() => import("../pages/product/ModifyPage"))
+);
 // Login Page
-const LoginPage = lazy(() => import("../pages/member/LoginPage"));
-const LogoutPage = lazy(() => import("../pages/member/LogoutPage"));
+const LoginPage = lazy(() => 
+  delay(2000).then(() => import("../pages/member/LoginPage"))
+);
+const LogoutPage = lazy(() => 
+  delay(2000).then(() => import("../pages/member/LogoutPage"))
+);
 // kakao Page
-const KakaoRedirect = lazy(() => import('../pages/member/KakaoRedirectPage'));
+const KakaoRedirect = lazy(() => 
+  delay(2000).then(() => import('../pages/member/KakaoRedirectPage'))
+);
+const MemberModify = lazy(() => import('../pages/member/ModifyPage'));
 
 
 const root = createBrowserRouter([
@@ -139,6 +154,13 @@ const root = createBrowserRouter([
     path: '/member/kakao', element: (
       <Suspense fallback={<Loading />}>
         <KakaoRedirect />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/member/modify', element: (
+      <Suspense fallback={<Loading />}>
+        <MemberModify />
       </Suspense>
     ),
   },

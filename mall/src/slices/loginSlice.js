@@ -30,7 +30,8 @@ const loginSlice = createSlice({
       //{email, pw 로 구성 }
       const data = action.payload;
       //새로운 상태
-      return { email: data.email };
+      setCookie("member", JSON.stringify(data),1);
+      return data;
     },
     logout: (state, action) => {
       console.log("로그아웃 ............... ");

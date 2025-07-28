@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_SERVER_HOST } from "./todoApi";
+import jwtAxios from "../util/jwtUtil";
 
 // 서버주소 및 url(공통주소)
 const host = `${API_SERVER_HOST}/api/member`;
@@ -16,3 +17,9 @@ export const loginPost = async (loginParam) => {
 
   return res.data;
 };
+
+export const modifyMember = async (member) => {
+  const res = await jwtAxios.put(`${host}/modify`, member);
+
+  return res.data;
+}
